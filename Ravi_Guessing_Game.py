@@ -9,18 +9,17 @@ def outline(message):
 
 
 def number_guessing_game():
-    global high_score #Learned from https://www.geeksforgeeks.org/global-local-variables-python/
-    global keep_playing
+    global high_score 
     number = random.randint(1, 10)
     number_of_guesses = 0
-    while True:     #continuosly prompts for guess and tells if it is higher or lower
+    while True:     
         player_guess = input("Pick a number between 1 and 10: ")
         try:
             player_guess = int(player_guess)
-            if player_guess < 1 or player_guess > 10: #Makes sure guess is between 1 and 10
+            if player_guess < 1 or player_guess > 10:
                 raise ValueError("{} is not between 1 and 10".format(player_guess))
         except ValueError as err:
-            if ("invalid literal" in str(err)): #Throws error if a number was not inputed
+            if ("invalid literal" in str(err)):
                 print("Sorry, {} is not a valid input".format(player_guess))
                 continue
             else:
@@ -42,13 +41,14 @@ def number_guessing_game():
             continue
     if number_of_guesses < high_score:
         high_score = number_of_guesses
-    print()
 
+
+def play_again():
     while True:
-        keep_playing = input("Would you like to play again? (Y/N) ")
+        keep_playing = input("\nWould you like to play again? (Y/N) ")
         print()
 
-        try:    #makes sure "y" or "n" was entered
+        try:    
             keep_playing = keep_playing.lower()
             if keep_playing == "n":
                 outline("Have a great day!")
@@ -56,16 +56,21 @@ def number_guessing_game():
             elif keep_playing != "y":
                 raise ValueError
         except ValueError:
-            print("You must enter 'Y' or 'N'. Please try again.")
+            print("\nYou must enter 'Y' or 'N'. Please try again.")
             continue
-        if keep_playing.lower() == "y":     #plays game again or quits the game based on user input
+        if keep_playing == "y":   
             outline("The score to beat is {}!".format(high_score))
             number_guessing_game()
 
 
-outline("Welcome to Ravi's Number Guessing Game")
-number_guessing_game()
+def start_game():
+    outline("Welcome to Ravi's Number Guessing Game")
+    number_guessing_game()
+    play_again()
 
+
+if __name__ == '__main__':
+    start_game()
 
 
 
